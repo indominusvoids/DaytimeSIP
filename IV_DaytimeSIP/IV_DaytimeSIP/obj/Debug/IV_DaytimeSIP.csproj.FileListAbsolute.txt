@@ -1,7 +1,0 @@
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\obj\Debug\IV_DaytimeSIP.csproj.AssemblyReference.cache
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\obj\Debug\IV_DaytimeSIP.csproj.CoreCompileInputs.cache
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\IV_DaytimeSIP.dll.config
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\obj\Debug\IV_DaytimeSIP.dll
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\obj\Debug\IV_DaytimeSIP.pdb
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\IV_DaytimeSIP.dll
-C:\Users\salam\source\repos\IV_DaytimeSIP\IV_DaytimeSIP\IV_DaytimeSIP.pdb
