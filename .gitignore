@@ -8,7 +8,7 @@
 *.user
 
 *.dll
-
+*.dll.config
 
 *.zip
 *.7z
