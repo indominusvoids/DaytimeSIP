@@ -34,31 +34,25 @@ namespace EntityAI
 
             Log.Out("Entity is a sleeper.");
 
+            // DAY: Return sleeper to the spawn position if it has one.
+            if (__instance.world.IsDaytime()
+                && __instance.SleeperSpawnPosition != null
+                && !__instance.SleeperSpawnPosition.Equals(Vector3.zero))
+            {
+                __instance.SetInvestigatePosition(__instance.SleeperSpawnPosition, 1000);
+                return;
+            }
 
-            if (__instance.IsSleeping)
+            // NIGHT: Wake up the zombie if it is sleeping.
+            if (!__instance.world.IsDaytime() && __instance.IsSleeping)
             {
-                 if (GameManager.Instance.World.IsDaytime())
-                 {
-                     return; // Exit early, so no further actions are taken.
-                 }
-                 else
-                 {
-                     __instance.ConditionalTriggerSleeperWakeUp(); // Wake up the zombie
-                 }
-             }
-             else
-            {
-                if (GameManager.Instance.World.IsDaytime())
-                {
-                    // If the zombie is not sleeping and it's daytime, set its investigation position.
-                    if (__instance.SleeperSpawnPosition != null && !__instance.SleeperSpawnPosition.Equals(Vector3.zero))
-                    {
-                        __instance.SetInvestigatePosition(__instance.SleeperSpawnPosition, 1000);
-                    }
-                }
+                __instance.ConditionalTriggerSleeperWakeUp();
+                return;
             }
         }
     }
+}
+
     [HarmonyPatch(typeof(EntityAlive), nameof(EntityAlive.setHomeArea))]
     public class Entity_setHomeArea_Patch
     {
