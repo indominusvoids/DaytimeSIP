@@ -51,7 +51,7 @@ namespace EntityAI
             }
         }
     }
-}
+
 
     [HarmonyPatch(typeof(EntityAlive), nameof(EntityAlive.setHomeArea))]
     public class Entity_setHomeArea_Patch
