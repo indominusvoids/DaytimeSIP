@@ -1,0 +1,14 @@
+
+[Bb]in/
+[Oo]bj/
+.vs/
+
+*.pdb
+*.suo
+*.user
+
+*.dll
+
+
+*.zip
+*.7z
