@@ -9,7 +9,6 @@ namespace EntityAI
     public class EntityAIPatch
     {
         private static bool hasChecked = false;
-        private static IsIndoors isIndoorsCheck = new IsIndoors();
         private static System.Random rnd = new System.Random();
         private static Vector3 returnPosition = Vector3.zero;
         private static List<Vector3> sleeperSpawnPositions = new List<Vector3>();
@@ -22,6 +21,8 @@ namespace EntityAI
                 return;
             }
 
+            bool isUnderSky = Physics.Raycast(__instance.transform.position, Vector3.up, 256f, 2130706431);
+
             // If this is the first update, add the entity spawn point to a list if it's indoors.
             if (!hasChecked)
             {
@@ -29,7 +30,7 @@ namespace EntityAI
                 Vector3 spawnPosition = __instance.SleeperSpawnPosition;
                 Log.Out($"Initial Check: Spawn Position: {spawnPosition}, Entity: {__instance.EntityName}");
 
-                if (isIndoorsCheck.IsValid(new MinEventParams { Self = __instance }))
+                if (!isUnderSky)
                 {
                     Log.Out($"Entity {__instance.EntityName} is indoors at spawn position {spawnPosition}. Adding to indoors list.");
                     sleeperSpawnPositions.Add(spawnPosition);
@@ -42,10 +43,6 @@ namespace EntityAI
 
                 return;
             }
-
-            // Check if the entity is indoors
-            bool isEntityIndoors = isIndoorsCheck.IsValid(new MinEventParams { Self = __instance });
-            Log.Out($"Post-Check: Entity {__instance.EntityName} is indoors: {isEntityIndoors}, Current Position: {__instance.position}");
 
             // NIGHT: Wake up the entity if it is sleeping.
             if (!__instance.world.IsDaytime() && __instance.IsSleeping)
@@ -60,7 +57,7 @@ namespace EntityAI
                && __instance.SleeperSpawnPosition != null
                && !__instance.SleeperSpawnPosition.Equals(Vector3.zero))
             {
-                if (!isEntityIndoors)
+                if (isUnderSky)
                 {
                     if (!returnPosition.Equals(Vector3.zero))
                     {
