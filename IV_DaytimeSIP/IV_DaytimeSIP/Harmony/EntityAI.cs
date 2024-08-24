@@ -12,6 +12,8 @@ namespace EntityAI
         private static System.Random rnd = new System.Random();
         private static Vector3 returnPosition = Vector3.zero;
         private static List<Vector3> sleeperSpawnPositions = new List<Vector3>();
+        private static string currentPosition = string.Empty;
+        private static IsUnderSky isUnderSkyCheck = new IsUnderSky();
 
         [HarmonyPostfix]
         public static void Postfix(EntityAlive __instance)
@@ -21,7 +23,17 @@ namespace EntityAI
                 return;
             }
 
-            bool isUnderSky = Physics.Raycast(__instance.transform.position, Vector3.up, 256f, 2130706431);
+            bool isUnderSky = isUnderSkyCheck.IsValid(new MinEventParams { Self = __instance });
+
+            if (isUnderSky) {
+                currentPosition = "Under the sky (Outside)";
+            }
+            else
+            {
+                currentPosition = "Under a ceiling (Inside)";
+            }
+
+            Log.Out($"{__instance.entityName} is currently: {currentPosition}!");
 
             // If this is the first update, add the entity spawn point to a list if it's indoors.
             if (!hasChecked)
@@ -75,6 +87,7 @@ namespace EntityAI
                 }
                 else
                 {
+                    hasChecked = false;
                     Log.Out($"Entity {__instance.EntityName} is indoors during the day. Resuming sleeper pose.");
                     __instance.ResumeSleeperPose();
                 }

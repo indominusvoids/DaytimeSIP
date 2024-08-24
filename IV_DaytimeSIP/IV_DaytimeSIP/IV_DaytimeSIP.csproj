@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Harmony\EntityAI.cs" />
     <Compile Include="Harmony\Init.cs" />
-    <Compile Include="Harmony\IsIndoors.cs" />
+    <Compile Include="Requirements\IsUnderSky.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
