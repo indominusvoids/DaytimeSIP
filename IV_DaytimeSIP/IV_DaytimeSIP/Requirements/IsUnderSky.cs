@@ -4,8 +4,15 @@ internal class IsUnderSky : RequirementBase
 {
     public override bool IsValid(MinEventParams _params)
     {
-        bool flag = !Physics.Raycast(((Component)_params.Self).transform.position + Vector3.up, Vector3.up, 256f, 2130706431);
-        Log.Out($"Is Under Sky: {flag}");
+        if (_params.Self == null)
+        {
+            Debug.LogError("[IsUnderSky] _params.Self is null.");
+            return false;
+        }
+
+        Vector3 raycastOrigin = ((Component)_params.Self).transform.position + Vector3.up;
+        bool flag = !Physics.Raycast(raycastOrigin, Vector3.up, 256f, 2130706431);
+
         return !this.invert ? flag : !flag;
     }
 }
